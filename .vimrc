@@ -1,11 +1,27 @@
 call plug#begin()
-Plug '~/code/git/catppuccin', { 'as': 'catppuccin' }
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'itchyny/lightline.vim'
 Plug 'liuchengxu/vim-clap'
 Plug 'tpope/vim-sensible'
 Plug 'sheerun/vim-polyglot'
 Plug 'preservim/nerdtree'
+Plug 'tpope/vim-surround'
 call plug#end()
+
+lua << EOF
+require("catppuccin").setup {
+	color_overrides = {
+		mocha = {
+			base = "#000000",
+		},
+	},
+}
+EOF
+
+colorscheme catppuccin-mocha
+
+let g:lightline = { 'colorscheme': 'catppuccin' }
+let g:clap_theme = 'catppuccin'
 
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
@@ -20,27 +36,3 @@ set number
 set relativenumber
 
 nnoremap <C-n> :NERDTreeToggle<CR>
-
-function! SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
-
-
-lua << EOF
-require("catppuccin").setup {
-	color_overrides = {
-		mocha = {
-			base = "#000000",
-		},
-	},
-}
-
-EOF
-
-colorscheme catppuccin-mocha
-
-let g:lightline = { 'colorscheme': 'catppuccin' }
-let g:clap_theme = 'catppuccin'
